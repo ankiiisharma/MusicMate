@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import SpotifyProviders from 'next-auth/providers/spotify';
 
-
 const handler = NextAuth({
     providers: [
         SpotifyProviders({
@@ -20,7 +19,7 @@ const handler = NextAuth({
             return token;
         },
         async session({ session, token }) {
-            session.accessToken = token.accessToken;
+            session.accessToken = token.accessToken as string;
             return session;
         }
     }

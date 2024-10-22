@@ -8,6 +8,7 @@ import LoadingSkeleton from "../../components/LoadingSkelton";
 import { IoIosWarning } from "react-icons/io";
 
 interface Artist {
+  album: any;
   id: string;
   name: string;
   images: { url: string }[];

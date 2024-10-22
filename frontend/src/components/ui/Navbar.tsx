@@ -18,7 +18,9 @@ export const Navbar = () => {
                     </div>
 
                     <div> 
+                        <Link href={"https://www.github.com/ankiiisharma"}> 
                         <FaGithub/>
+                        </Link>
                     </div>
             </div>
         </>
