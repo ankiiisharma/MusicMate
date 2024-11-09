@@ -20,7 +20,7 @@ export const Navbar = () => {
                     </div>
 
                     <div> 
-                        <Link href={"https://www.github.com/ankiiisharma"}> 
+                        <Link href={"https://github.com/ankiiisharma/MusicMate"}> 
                         <FaGithub/>
                         </Link>
                     </div>
