@@ -1,66 +1,91 @@
-'use client';
+'use client'
 
-import {signIn, useSession} from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { LogOut } from "lucide-react"
-import { FaSpotify } from "react-icons/fa";
+import { LogOut, Music } from "lucide-react"
 
-export default function HomePage(){
-  const {data: session} = useSession();
-  const router = useRouter();
+export default function HomePage() {
+  const { data: session } = useSession()
+  const router = useRouter()
   
-  useEffect(()=>{
-    if(session){
-      router.push('/dashboard');
+  useEffect(() => {
+    if (session) {
+      router.push('/dashboard')
     }
   }, [session, router])
 
-  return(
-    <> 
-        <section className="container w-full bg-white">
-        <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32">
-          <div className="text-center space-y-8">
-            
-  
-            <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold">
-              <h1>
+  return (
+    <div className="min-h-screen bg-white text-gray-900 relative overflow-hidden">
+      {/* Tight Square Grid Background with Fading Effect */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 grid grid-cols-[repeat(auto-fill,minmax(20px,1fr))] gap-[1px]">
+          {Array.from({ length: 2500 }).map((_, i) => (
+            <div key={i} className="aspect-square bg-gray-50"></div>
+          ))}
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-[550px] bg-gradient-to-t from-white to-transparent"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        <div className="container mx-auto px-4 py-12 md:py-24">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Meet your
-                <span className="text-transparent px-2 bg-gradient-to-r from-green-500 to-green-700 bg-clip-text">
-                  Chart-toppers!
-                </span>
-                Tuning into your musical universe.
-              </h1>
-            </div>
-  
-            <p className="max-w-screen-sm mx-auto text-xl text-gray-600">
-              {`MusicMate connects to your Spotify, revealing your top artists, tracks, and music insights.`}
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-700">
+                Chart-toppers!
+              </span>
+              Tuning into your musical universe.
+            </h1>
+
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              MusicMate connects to your Spotify, revealing your top artists, tracks, and music insights.
             </p>
-  
-            <div className="space-y-4 md:space-y-0 md:space-x-4 justify-center items-center flex">
-                {!session ?(
-              <button
-              onClick={()=>signIn('spotify')}
-              className="w-5/6 md:w-1/4 font-bold group/arrow bg-green-700 hover:bg-green-800 text-white item-center flex py-3 text-center px-2 rounded-lg border border-gray-500 items-center justify-center">
-                <FaSpotify className="mr-2"/>
-                Login with Spotify
-                
-              </button>) :(
-                   <button className="w-5/6 md:w-1/4 font-bold group/arrow bg-green-700 hover:bg-green-800 text-white item-center flex py-3 text-center px-2 rounded-lg border border-gray-500 items-center justify-center">
-                   <LogOut /> Log Out
-                   
-                 </button> 
-              )}              
+
+            <div className="flex justify-center">
+              {!session ? (
+                <button
+                  onClick={() => signIn('spotify')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center"
+                >
+                  <Music className="mr-2 h-5 w-5" />
+                  Login with Spotify
+                </button>
+              ) : (
+                <button
+                  onClick={() => router.push('/dashboard')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center"
+                >
+                  <LogOut className="mr-2 h-5 w-5" />
+                  Go to Dashboard
+                </button>
+              )}
             </div>
           </div>
-  
-          <div className="relative group mt-14">
-            <div className="absolute top-2 lg:-top-8 left-1/2 transform -translate-x-1/2 w-[90%] mx-auto h-24 lg:h-80 bg-green-400/50 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-full h-20 md:h-28 bg-gradient-to-b from-white/0 via-white/50 to-white rounded-lg"></div>
+
+          {/* Features Section */}
+          <div className="mt-16 grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Discover Top Tracks", description: "Uncover your most-played songs and hidden gems." },
+              { title: "Analyze Music Taste", description: "Gain insights into your listening habits and preferences." },
+              { title: "Explore Artists", description: "Dive deep into your favorite artists and their impact on your music journey." },
+            ].map((feature, index) => (
+              <div key={index} className="text-center">
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </>
-  )
 
+        {/* Disclaimer */}
+        <footer className="text-center py-6 text-sm text-gray-500 bg-white/80 backdrop-blur-sm">
+          <p>
+            MusicMate is a showcase project. All rights to music, artwork, and related content belong to Spotify and their respective owners.
+          </p>
+        </footer>
+      </div>
+    </div>
+  )
 }
