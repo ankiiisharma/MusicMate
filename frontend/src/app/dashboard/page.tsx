@@ -171,6 +171,7 @@ const DashboardPage = () => {
 
           {currentPlaying ? (
             <div className="flex flex-col md:flex-row justify-center items-center mt-5 mb-2 py-2 gap-4">
+              
               <img
                 src={currentPlaying.item.album.images[0]?.url}
                 alt="Album Cover"
